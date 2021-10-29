@@ -5,7 +5,7 @@ import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import container from './inversifyConfig';
 import {InversifyExpressServer} from 'inversify-express-utils';
-import {AuthProvider} from "./common/auth/authProvider";
+import {AuthProvider} from "./auth/authProvider";
 
 (async () => {
 

@@ -7,7 +7,7 @@ import {inject} from "inversify";
 import TYPES from "../types";
 import {ILogger} from "../common/_interfaces";
 import {IUserService} from "../services/interfaces/IUserService";
-import {Principal} from "../common/auth/principal";
+import {Principal} from "../auth/principal";
 
 
 @ApiPath({

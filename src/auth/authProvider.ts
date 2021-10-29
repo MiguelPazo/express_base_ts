@@ -5,9 +5,9 @@ import {inject, injectable} from "inversify";
 import {interfaces} from "inversify-express-utils";
 import * as e from "express";
 import {Principal} from "./principal";
-import TYPES from "../../types";
-import {IJwtService} from "../../services/interfaces/IJwtService";
-import {ILogger} from "../_interfaces";
+import TYPES from "../types";
+import {ILogger} from "../common/_interfaces";
+import {IJwtService} from "../services/interfaces/IJwtService";
 
 
 @injectable()
