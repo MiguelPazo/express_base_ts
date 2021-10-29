@@ -1,14 +1,6 @@
 /**
  * Created by Miguel Pazo (https://miguelpazo.com)
  */
-import {IAuroraDb, IMongoDb, IRedisDb} from "./database/_interfaces";
-import {IAuthService} from "./services/interfaces/IAuthService";
-import {ISqsService} from "./services/interfaces/ISqsService";
-import {IUploadService} from "./services/interfaces/IUploadService";
-import {ILogger} from "./common/_interfaces";
-import {IUserService} from "./services/interfaces/IUserService";
-import {AuthFilter} from "./middlewares/authFilter";
-import {TokenFilter} from "./middlewares/tokenFilter";
 
 const TYPES = {
     // Utils
@@ -17,7 +9,6 @@ const TYPES = {
 
     // Filters
     AuthFilter: Symbol.for('AuthFilter'),
-    TokenFilter: Symbol.for('TokenFilter'),
 
     // Databases
     IAuroraDb: Symbol.for('IAuroraDb'),

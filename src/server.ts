@@ -1,13 +1,10 @@
 /**
  * Created by Miguel Pazo (https://miguelpazo.com)
  */
-import * as express from 'express';
 import * as bodyParser from 'body-parser';
 import * as cors from 'cors';
 import container from './inversifyConfig';
 import {InversifyExpressServer} from 'inversify-express-utils';
-import * as formidable from 'express-formidable';
-import * as swagger from "swagger-express-ts";
 import {AuthProvider} from "./common/auth/authProvider";
 
 (async () => {

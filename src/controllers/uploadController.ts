@@ -2,7 +2,7 @@
  * Created by Miguel Pazo (https://miguelpazo.com)
  */
 import {Request, Response} from "express";
-import {controller, httpGet, httpPost} from "inversify-express-utils";
+import {controller, httpPost} from "inversify-express-utils";
 import {ApiOperationPost, ApiPath, SwaggerDefinitionConstant} from "swagger-express-ts";
 import {inject} from "inversify";
 import TYPES from "../types";
@@ -14,7 +14,7 @@ import {ILogger} from "../common/_interfaces";
     name: "Upload",
     security: {bearerToken: []}
 })
-@controller("/upload", TYPES.TokenFilter)
+@controller("/upload", TYPES.AuthFilter)
 export class UploadController {
 
     private readonly logger;
@@ -48,6 +48,6 @@ export class UploadController {
     })
     @httpPost("/")
     public index(request: Request, response: Response) {
-        return {"status": "ok"};
+        return {"status": "upload"};
     }
 }

@@ -13,8 +13,6 @@ import * as e from "express";
 @injectable()
 export class AuthFilter extends BaseMiddleware {
 
-    public readonly authenticationSchemeName: string = "Bearer "
-
     @inject(TYPES.ILogger)
     private readonly logger: ILogger;
 
@@ -25,16 +23,10 @@ export class AuthFilter extends BaseMiddleware {
     private readonly redisDb: IRedisDb;
 
     async handler(req: e.Request, res: e.Response, next: e.NextFunction): Promise<void> {
-        try {
-            if (await this.httpContext.user.isAuthenticated()) {
-                this.logger.getLogger().info(`${this.httpContext.user.details.firstname} => ${req.url}`);
-            } else {
-                this.logger.getLogger().info(`Anonymous => ${req.url}`);
-            }
-        } catch (err) {
-            this.logger.getLogger().error(err);
+        if (await this.httpContext.user.isAuthenticated()) {
+            next();
+        } else {
+            res.status(401).json({});
         }
-
-        next();
     }
 }

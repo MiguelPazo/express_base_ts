@@ -23,7 +23,6 @@ import {Logger} from "./common/logger";
 import {IUserService} from "./services/interfaces/IUserService";
 import {UserService} from "./services/userService";
 import {AuthFilter} from "./middlewares/authFilter";
-import {TokenFilter} from "./middlewares/tokenFilter";
 
 const container = new Container({autoBindInjectable: true});
 
@@ -33,7 +32,6 @@ container.bind<ILogger>(TYPES.ILogger).to(Logger).inSingletonScope();
 
 // Filters
 container.bind<AuthFilter>(TYPES.AuthFilter).to(AuthFilter);
-container.bind<TokenFilter>(TYPES.TokenFilter).to(TokenFilter);
 
 // Databases
 container.bind<IAuroraDb>(TYPES.IAuroraDb).to(AuroraDb).inSingletonScope();

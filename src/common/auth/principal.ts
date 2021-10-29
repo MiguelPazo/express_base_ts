@@ -11,8 +11,7 @@ export class Principal implements interfaces.Principal {
     }
 
     public isAuthenticated(): Promise<boolean> {
-        // return Promise.resolve(this.details !== null);
-        return Promise.resolve(true);
+        return Promise.resolve(this.details !== null);
     }
 
     public isResourceOwner(resourceId: any): Promise<boolean> {
