@@ -5,7 +5,7 @@
   "scripts": {
     "dev": "npm run copy-files && tsc-watch --onSuccess \"node -r dotenv/config ./.build/src/server.js\"",
     "build": "rimraf .build/ && tsc && npm run copy-files",
-    "test": "jest --coverage --verbose",
+    "test": "mocha -r ts-node/register tests/**/*.ts",
     "copy-files": "copyfiles -a ./storage/**/*.* ./.build"
   },
   "engines": {
