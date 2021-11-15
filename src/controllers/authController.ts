@@ -7,6 +7,7 @@ import {inject} from "inversify";
 import TYPES from "../types";
 import {IAuthService} from "../services/interfaces/IAuthService";
 import {ILogger} from "../common/_interfaces";
+import {Request} from "express";
 
 
 @ApiPath({
@@ -26,11 +27,13 @@ export class AuthController {
     }
 
     @httpPost("")
-    public async index(@requestBody() user: any) {
-        this.logger.info(user);
+    public async index(@requestBody() user: any, request: Request) {
+        const result = await this.authService.validate(user.user, user.password, request.ip, request.get('User-Agent'));
 
-        const result = await this.authService.validate(user.user, user.password);
+        if (result) {
+            return {success: true, token: result};
+        }
 
-        return {success: result};
+        return {success: false};
     }
 }

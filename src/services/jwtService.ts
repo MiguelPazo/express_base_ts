@@ -3,7 +3,7 @@
  */
 import {inject, injectable} from "inversify";
 import TYPES from "../types";
-import {IRedisDb} from "../database/_interfaces";
+import {IRedisDb} from "../databases/_interfaces";
 import {PayloadToken} from "../dto/payloadToken";
 import * as fs from "fs";
 import {IJwtService} from "./interfaces/IJwtService";
@@ -16,84 +16,82 @@ export class JwtService implements IJwtService {
 
     private readonly logger;
 
-    constructor(@inject(TYPES.ILogger) logger: ILogger) {
-        this.logger = logger.getLogger();
-    }
-
     @inject(TYPES.IRedisDb)
     private redisDb: IRedisDb;
 
     @inject(TYPES.IUtils)
     private readonly utils: IUtils;
 
-    async generateAuthToken(data: any): Promise<any> {
-        try {
-            if (this.utils.isEmpty(data)) {
-                return null;
-            }
+    constructor(@inject(TYPES.ILogger) logger: ILogger) {
+        this.logger = logger.getLogger();
+    }
 
+    async generateAuthToken(data: any): Promise<string | null> {
+        try {
             const privateKey = fs.readFileSync(__dirname + './../../storage/keys/private_key.json');
             const jwkPrivate = await importJWK(JSON.parse(privateKey.toString()), 'PS256');
 
-            return await new SignJWT(data)
-                // .setProtectedHeader({alg: 'ES256'})
+            const authToken = await new SignJWT(data)
                 .setProtectedHeader({alg: 'RS256'})
                 .setIssuedAt()
                 .setIssuer('app')
+                .setJti(this.utils.generateCode())
                 .setAudience('audience')
                 .setExpirationTime('24h')
                 .sign(jwkPrivate);
+
+            return Promise.resolve(authToken);
         } catch (err) {
             this.logger.error(err);
         }
 
-        return null;
+        return Promise.resolve(null);
     }
 
     async verifyAuthToken(jwt: string): Promise<PayloadToken | any> {
         try {
-            if (this.utils.isEmpty(jwt)) {
-                return null;
+            if (this.utils.isEmpty(jwt.toString())) {
+                return Promise.resolve(null);
             }
 
             const publicKey = fs.readFileSync(__dirname + './../../storage/keys/public_key.json');
             const jwkPublic = await importJWK(JSON.parse(publicKey.toString()), 'PS256');
+            const {payload} = await jwtVerify(jwt.toString(), jwkPublic);
 
-            const {payload} = await jwtVerify(jwt, jwkPublic);
+            payload['token'] = jwt;
 
-            return payload;
+            return Promise.resolve(payload);
         } catch (err) {
             this.logger.error(err);
         }
 
-        return null;
+        return Promise.resolve(null);
     }
 
-    async setRevokedToken(token: string, exp: string): Promise<any> {
+    async setRevokedToken(payload: PayloadToken): Promise<boolean> {
         try {
-            const redisWriter = await this.redisDb.redisWriter();
-            const key = token;
+            const redisWriter = await this.redisDb.getWriter();
 
-            const result = await redisWriter.set(key, true);
-            await redisWriter.expireat(key, parseInt(exp));
+            await redisWriter.set(payload.token, true);
+            await redisWriter.expireat(payload.token, payload.exp);
 
-            return result;
+            return Promise.resolve(true);
         } catch (err) {
             this.logger.error(err);
         }
 
-        return null;
+        return Promise.resolve(false);
     }
 
-    async getRevokedToken(key: string): Promise<any> {
+    async getRevokedToken(jwt: string): Promise<string | null> {
         try {
-            const redisReader = await this.redisDb.redisReader();
+            const redisReader = await this.redisDb.getReader();
 
-            return await redisReader.get(key);
+            return Promise.resolve(await redisReader.get(jwt));
         } catch (err) {
             this.logger.error(err);
         }
 
-        return null;
+        return Promise.resolve(null);
     }
 }

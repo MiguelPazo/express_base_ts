@@ -11,9 +11,13 @@ const TYPES = {
     AuthFilter: Symbol.for('AuthFilter'),
 
     // Databases
-    IAuroraDb: Symbol.for('IAuroraDb'),
+    IMysqlDb: Symbol.for('IMysqlDb'),
     IMongoDb: Symbol.for('IMongoDb'),
     IRedisDb: Symbol.for('IRedisDb'),
+    IDynamoDb: Symbol.for('IDynamoDb'),
+
+    // Dao
+    IUserDao: Symbol.for('IUserDao'),
 
     // Services
     IAuthService: Symbol.for('IAuthService'),

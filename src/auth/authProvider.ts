@@ -8,6 +8,7 @@ import {Principal} from "./principal";
 import TYPES from "../types";
 import {ILogger} from "../common/_interfaces";
 import {IJwtService} from "../services/interfaces/IJwtService";
+import {PayloadToken} from "../dto/payloadToken";
 
 
 @injectable()
@@ -27,7 +28,7 @@ export class AuthProvider implements interfaces.AuthProvider {
     public async getUser(req: e.Request, res: e.Response, next: e.NextFunction): Promise<interfaces.Principal> {
         try {
             // @ts-ignore
-            const token = req.headers.authorization.split(this.authenticationSchemeName)[1];
+            const token = req.headers.authorization ? req.headers.authorization.split(this.authenticationSchemeName)[1] : '';
 
             if (this.pathsJwt.some(x => req.url.startsWith(x))) {
                 return await this.validateJwt(token);
@@ -66,7 +67,10 @@ export class AuthProvider implements interfaces.AuthProvider {
     public async validateToken(token: string): Promise<interfaces.Principal> {
         try {
             if (token === process.env.APP_ACCESS_TOKEN) {
-                return new Principal({app: true});
+                let payload = new PayloadToken();
+                payload.user = "app";
+
+                return new Principal(payload);
             }
 
         } catch (err) {

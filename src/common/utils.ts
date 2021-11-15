@@ -47,10 +47,10 @@ export class Utils implements IUtils {
         return regexp.test(value);
     }
 
-    generateCode(value: string): string {
+    generateCode(value?: string): string {
         let uuid = uuidv4();
 
-        if (!this.isEmpty(value)) {
+        if (value && !this.isEmpty(value)) {
             uuid = uuid + value;
         }
 
@@ -93,6 +93,10 @@ export class Utils implements IUtils {
 
     async hashPasswordWithSalt(password: string): Promise<any> {
         return await bcrypt.hashSync(password, Constants.SALT_ROUNDS);
+    }
+
+    async comparePasswordWithSalt(password: string, hash: string): Promise<any> {
+        return await bcrypt.compareSync(password, hash);
     }
 }
 

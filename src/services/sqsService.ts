@@ -27,10 +27,7 @@ export class SqsService implements ISqsService {
         try {
             await sqs.sendMessage(params).promise();
         } catch (err) {
-            // this.logger.error(JSON.stringify({
-            //     message: 'error: send message sqs',
-            //     result: err
-            // }));
+            this.logger.error(err);
         }
 
         return Promise.resolve(true);

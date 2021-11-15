@@ -109,3 +109,5 @@ package-lock.json
 notes.txt
 .mocharc.js
 ecosystem.config.js
+coverage/
+.nyc_output/

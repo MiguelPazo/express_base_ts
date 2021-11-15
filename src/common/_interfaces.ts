@@ -17,7 +17,7 @@ export interface IUtils {
 
     validPasswordStructure(value): boolean;
 
-    generateCode(value: string): string;
+    generateCode(value?: string): string;
 
     generateToken(size: number): string;
 
@@ -28,6 +28,8 @@ export interface IUtils {
     hashPassword(password: string): string;
 
     hashPasswordWithSalt(password: string): Promise<any>;
+
+    comparePasswordWithSalt(password: string, hash: string): Promise<any>
 }
 
 export interface ILogger {

@@ -4,5 +4,5 @@
 
 export interface IAuthService {
 
-    validate(user?: string, password?: string): Promise<Boolean>;
+    validate(user: string, password: string, ip: string, userAgent?: string): Promise<string | null>;
 }

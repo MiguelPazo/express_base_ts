@@ -3,5 +3,4 @@
  */
 import './authController';
 import './indexController';
-import './uploadController';
 import './userController';

@@ -24,17 +24,11 @@ import {AuthProvider} from "./auth/authProvider";
     server.setConfig((app) => {
         app.use(cors());
 
-        // app.use(formidable({
-        //     encoding: 'utf-8',
-        //     multiples: true
-        // }));
-
         app.use(bodyParser.urlencoded({
             extended: true
         }));
 
         app.use(bodyParser.json());
-
 
         // app.use('/api-docs/swagger', (request: express.Request, response: express.Response, next: express.NextFunction) => {
         //     if ((process.env.NODE_ENV || '') !== 'production') {
@@ -73,7 +67,7 @@ import {AuthProvider} from "./auth/authProvider";
     });
 
     let app = server.build();
-    app.listen(process.env.NODE_PORT);
+    app.listen(parseInt(process.env.NODE_PORT || '3030'));
 
     console.log(`Listen on http://localhost:${process.env.NODE_PORT}`);
 })();

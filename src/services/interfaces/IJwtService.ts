@@ -5,11 +5,11 @@ import {PayloadToken} from "../../dto/payloadToken";
 
 export interface IJwtService {
 
-    generateAuthToken(data: any): Promise<PayloadToken | any>;
+    generateAuthToken(data: any): Promise<string | null>;
 
     verifyAuthToken(jwt: string): Promise<PayloadToken | any>;
 
-    setRevokedToken(token: string, exp: string): Promise<any>;
+    setRevokedToken(payload: PayloadToken): Promise<boolean>;
 
-    getRevokedToken(key: string): Promise<any>;
+    getRevokedToken(jwt: string): Promise<string | null>;
 }

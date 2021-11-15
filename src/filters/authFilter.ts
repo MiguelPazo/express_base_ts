@@ -5,7 +5,7 @@ import {inject, injectable} from "inversify";
 import {BaseMiddleware} from "inversify-express-utils";
 import TYPES from "../types";
 import {IJwtService} from "../services/interfaces/IJwtService";
-import {IRedisDb} from "../database/_interfaces";
+import {IRedisDb} from "../databases/_interfaces";
 import {ILogger} from "../common/_interfaces";
 import * as e from "express";
 

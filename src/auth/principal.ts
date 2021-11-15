@@ -2,11 +2,12 @@
  * Created by Miguel Pazo (https://miguelpazo.com)
  */
 import {interfaces} from "inversify-express-utils";
+import {PayloadToken} from "../dto/payloadToken";
 
 export class Principal implements interfaces.Principal {
     public details: any;
 
-    public constructor(details: any) {
+    public constructor(details: PayloadToken | null) {
         this.details = details;
     }
 
