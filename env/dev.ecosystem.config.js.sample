@@ -1,0 +1,38 @@
+module.exports = {
+    apps: [{
+        name: 'express_base_ts',
+        script: './src/serverConfig.js',
+        output: './storage/logs/debug.log',
+        error: './storage/logs/error.log',
+        merge_logs: true,
+        env: {
+            NODE_ENV: 'development',
+            NODE_PORT: '3030',
+            BASE_URL: 'http://localhost:3030',
+            CORS_ALLOW_ORIGIN: '.*(app.com)$',
+            APP_ACCESS_TOKEN: 'zmzRXnnCMgf6QyhHqgs33je3RuYTWBs4JJn9jkQsRVUumARx89pqgAG6w3eADhCX3FRb7W',
+            SWAGGER_API_URL: 'http://localhost:3031',
+            SWAGGER_ACCESS_TOKEN: 'J48XGcQtYyJ4u6jeqdt3VSS673C3K9LYqPPdcCfmEsbThCYREsZhfABvwz42cbhQWYyDhp',
+            DYNAMODB_REGION: 'cluster0.z8sda.mongodb.net',
+            DYNAMODB_ACCESS_KEY: 'cluster0.z8sda.mongodb.net',
+            DYNAMODB_SECRET_KEY: 'cluster0.z8sda.mongodb.net',
+            MONGODB_CONNECTOR: 'atlas',
+            MONGODB_HOST_READER: 'cluster0.z8sda.mongodb.net',
+            MONGODB_HOST_WRITER: 'cluster0.z8sda.mongodb.net',
+            MONGODB_USERNAME: 'admin',
+            MONGODB_PASSWORD: 'd1Y2BFkyuUeWRgKy',
+            MONGODB_DATABASE: 'demo',
+            MYSQL_HOST_READER: 'sigah2-aurora-cluster.cluster-cxpcxt7zqiii.ca-central-1.rds.amazonaws.com',
+            MYSQL_HOST_WRITER: 'sigah2-aurora-cluster.cluster-cxpcxt7zqiii.ca-central-1.rds.amazonaws.com',
+            MYSQL_USERNAME: 'admin',
+            MYSQL_PASSWORD: '23eR330qVBrFXLw0ZAmSoRY9zZQ84N',
+            MYSQL_DATABASE: 'sigah_v4',
+            REDIS_HOST_READER: '127.0.0.1',
+            REDIS_HOST_WRITER: '127.0.0.1',
+            REDIS_PASSWORD: 'redis',
+            SQS_REGION: '',
+            SQS_ACCESS_KEY: '',
+            SQS_SECRET_KEY: '',
+        }
+    }]
+};
