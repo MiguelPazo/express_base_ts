@@ -7,7 +7,7 @@ import {inject} from "inversify";
 import TYPES from "../types";
 import {ILogger} from "../common/_interfaces";
 import {IUserService} from "../services/interfaces/IUserService";
-import {Principal} from "../auth/principal";
+import {AuthUser} from "../auth/authUser";
 
 
 @ApiPath({
@@ -28,7 +28,7 @@ export class UserController {
     }
 
     @httpGet("/")
-    public async getOne(@principal() user: Principal) {
-        return await this.userService.getOne(user.details.firstname);
+    public async getOne(@principal() user: AuthUser) {
+        return await this.userService.getOne(user.details.user);
     }
 }

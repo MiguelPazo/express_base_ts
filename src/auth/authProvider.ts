@@ -4,11 +4,11 @@
 import {inject, injectable} from "inversify";
 import {interfaces} from "inversify-express-utils";
 import * as e from "express";
-import {Principal} from "./principal";
+import {AuthUser} from "./authUser";
 import TYPES from "../types";
 import {ILogger} from "../common/_interfaces";
 import {IJwtService} from "../services/interfaces/IJwtService";
-import {PayloadToken} from "../dto/payloadToken";
+import {TokenAuth} from "../dto/tokenAuth";
 
 
 @injectable()
@@ -42,7 +42,7 @@ export class AuthProvider implements interfaces.AuthProvider {
             this.logger.getLogger().error(err);
         }
 
-        return new Principal(null);
+        return new AuthUser(null);
     }
 
     public async validateJwt(token: string): Promise<interfaces.Principal> {
@@ -53,7 +53,7 @@ export class AuthProvider implements interfaces.AuthProvider {
                 const isRevoked = await this.jwtService.getRevokedToken(token);
 
                 if (!isRevoked) {
-                    return new Principal(user);
+                    return new AuthUser(user);
                 }
             }
 
@@ -61,22 +61,22 @@ export class AuthProvider implements interfaces.AuthProvider {
             this.logger.getLogger().error(err);
         }
 
-        return new Principal(null);
+        return new AuthUser(null);
     }
 
     public async validateToken(token: string): Promise<interfaces.Principal> {
         try {
             if (token === process.env.APP_ACCESS_TOKEN) {
-                let payload = new PayloadToken();
+                let payload = new TokenAuth();
                 payload.user = "app";
 
-                return new Principal(payload);
+                return new AuthUser(payload);
             }
 
         } catch (err) {
             this.logger.getLogger().error(err);
         }
 
-        return new Principal(null);
+        return new AuthUser(null);
     }
 }

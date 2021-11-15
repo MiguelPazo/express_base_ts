@@ -1,15 +1,15 @@
 /**
  * Created by Miguel Pazo (https://miguelpazo.com)
  */
-import {PayloadToken} from "../../dto/payloadToken";
+import {TokenAuth} from "../../dto/tokenAuth";
 
 export interface IJwtService {
 
     generateAuthToken(data: any): Promise<string | null>;
 
-    verifyAuthToken(jwt: string): Promise<PayloadToken | any>;
+    verifyAuthToken(jwt: string): Promise<TokenAuth | any>;
 
-    setRevokedToken(payload: PayloadToken): Promise<boolean>;
+    setRevokedToken(payload: TokenAuth): Promise<boolean>;
 
     getRevokedToken(jwt: string): Promise<string | null>;
 }

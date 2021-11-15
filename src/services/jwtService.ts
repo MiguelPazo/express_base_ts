@@ -4,7 +4,7 @@
 import {inject, injectable} from "inversify";
 import TYPES from "../types";
 import {IRedisDb} from "../databases/_interfaces";
-import {PayloadToken} from "../dto/payloadToken";
+import {TokenAuth} from "../dto/tokenAuth";
 import * as fs from "fs";
 import {IJwtService} from "./interfaces/IJwtService";
 import {importJWK, jwtVerify, SignJWT} from "jose";
@@ -48,7 +48,7 @@ export class JwtService implements IJwtService {
         return Promise.resolve(null);
     }
 
-    async verifyAuthToken(jwt: string): Promise<PayloadToken | any> {
+    async verifyAuthToken(jwt: string): Promise<TokenAuth | any> {
         try {
             if (this.utils.isEmpty(jwt.toString())) {
                 return Promise.resolve(null);
@@ -68,7 +68,7 @@ export class JwtService implements IJwtService {
         return Promise.resolve(null);
     }
 
-    async setRevokedToken(payload: PayloadToken): Promise<boolean> {
+    async setRevokedToken(payload: TokenAuth): Promise<boolean> {
         try {
             const redisWriter = await this.redisDb.getWriter();
 

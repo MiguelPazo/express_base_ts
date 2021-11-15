@@ -2,12 +2,12 @@
  * Created by Miguel Pazo (https://miguelpazo.com)
  */
 import {interfaces} from "inversify-express-utils";
-import {PayloadToken} from "../dto/payloadToken";
+import {TokenAuth} from "../dto/tokenAuth";
 
-export class Principal implements interfaces.Principal {
+export class AuthUser implements interfaces.Principal {
     public details: any;
 
-    public constructor(details: PayloadToken | null) {
+    public constructor(details: TokenAuth | null) {
         this.details = details;
     }
 

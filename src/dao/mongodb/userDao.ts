@@ -4,7 +4,7 @@
 import {inject, injectable} from "inversify";
 import {IUserDao} from "./_interfaces";
 import TYPES from "../../types";
-import {ILogger, IUtils} from "../../common/_interfaces";
+import {ILogger} from "../../common/_interfaces";
 import {IMongoDb} from "../../databases/_interfaces";
 import {IUserModel} from "../../models/mongodb/userModel";
 
@@ -26,7 +26,7 @@ export class UserDao implements IUserDao {
         const reader = await this.mongoDb.getReader();
 
         try {
-            const data = reader.collection(this.collection).findOne(query);
+            const data = await reader.collection(this.collection).findOne(query);
 
             return Promise.resolve(data);
         } catch (err) {
