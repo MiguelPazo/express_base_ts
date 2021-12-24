@@ -10,6 +10,7 @@ module.exports = {
             NODE_PORT: '3030',
             BASE_URL: 'http://localhost:3030',
             CORS_ALLOW_ORIGIN: '.*(app.com)$',
+            RECAPTCHA_SECRET: '',
             APP_ACCESS_TOKEN: 'zmzRXnnCMgf6QyhHqgs33je3RuYTWBs4JJn9jkQsRVUumARx89pqgAG6w3eADhCX3FRb7W',
             SWAGGER_API_URL: 'http://localhost:3031',
             SWAGGER_ACCESS_TOKEN: 'J48XGcQtYyJ4u6jeqdt3VSS673C3K9LYqPPdcCfmEsbThCYREsZhfABvwz42cbhQWYyDhp',

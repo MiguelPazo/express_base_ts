@@ -4,6 +4,7 @@ process.env.NODE_ENV = 'development';
 process.env.NODE_PORT = '3030';
 process.env.BASE_URL = 'http://localhost:3030';
 process.env.CORS_ALLOW_ORIGIN = '.*(app.com)$';
+process.env.RECAPTCHA_SECRET = '';
 process.env.APP_ACCESS_TOKEN = '';
 process.env.SWAGGER_API_URL = 'http://localhost:3031';
 process.env.SWAGGER_ACCESS_TOKEN = '';
